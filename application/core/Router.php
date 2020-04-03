@@ -35,15 +35,16 @@ class Router
 
     public function run()
     {
-        if ($this->match() == true) {
-            $controller = ucfirst($this->params['controller']);
-            $path = "application/controllers/{$controller}Controller.php";
+        if ($this->match()) {
+            $controller_path = ucfirst($this->params['controller']);
+            $path = 'application'.DS.'controllers'.DS.$controller_path.'Controller';
             if (class_exists($path)) {
-                $action = "$this->params['action']Action";
+                $action = $this->params['action'].'Action';
                 if (method_exists($path, $action)) {
-                    //
+                    $controller = new $path($this->params);
+                    $controller->$action();
                 } else {
-                    echo "Не найден Экшн";
+                    echo "Не найден Экшн: {$action}";
                 }
             } else {
                 echo "Не найден контроллер {$path}";
@@ -51,6 +52,5 @@ class Router
         } else {
             echo "Маршрут не найден";
         }
-//        echo "start";
     }
 }
