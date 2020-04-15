@@ -9,15 +9,11 @@ class MainController extends Controller
 {
     public function indexAction()
     {
-        $db = new Db;
-
-        $params = [
-            "id" => 3
+        $result = $this->model->getNews();
+        $vars = [
+            "news" => $result,
         ];
-        $data = $db->row("SELECT `name` FROM `users` WHERE `id` = :id", $params);
-        var_dump($data);
-
-        $this->view->render("Главная страница");
+        $this->view->render("Главная страница", $vars);
     }
 
 }
