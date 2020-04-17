@@ -9,6 +9,6 @@
     <script src="/public/scripts/form.js"></script>
 </head>
 <body>
-    <?= $content; ?>
+<?= $content; ?>
 </body>
 </html>
